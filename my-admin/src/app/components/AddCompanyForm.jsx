@@ -391,14 +391,7 @@ export default function AddCompanyForm({ onSuccess }) {
                           placeholder="Leave empty to auto-generate"
                           className="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
                         />
-                        <button
-                          type="button"
-                          onClick={handleGeneratePks}
-                          disabled={!companyName.trim()}
-                          className="rounded-lg border border-indigo-200 bg-indigo-50 px-4 py-2 text-sm font-medium text-indigo-600 transition hover:border-indigo-300 hover:bg-indigo-100 disabled:cursor-not-allowed disabled:opacity-50"
-                        >
-                          Generate PKS
-                        </button>
+                        
                       </div>
                     </label>
                   </div>

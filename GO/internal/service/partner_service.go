@@ -116,6 +116,17 @@ func (s *PartnerService) GetAllPartners(ctx context.Context) ([]*models.Partner,
 
 // UpdatePartner updates a partner
 func (s *PartnerService) UpdatePartner(ctx context.Context, id string, req *models.UpdatePartnerRequest) error {
+	// Auto-adjust status based on contract end date when provided
+	if req.ContractEnd != nil && !req.ContractEnd.Time.IsZero() {
+		now := time.Now().Truncate(24 * time.Hour)
+		end := req.ContractEnd.Time.Truncate(24 * time.Hour)
+		if !end.Before(now) { // end >= today
+			req.Status = models.PartnerStatusActive // Y
+		} else {
+			req.Status = models.PartnerStatusInactive // N
+		}
+	}
+
 	// Check if company_id is being updated and if it already exists
 	if req.CompanyID != "" {
 		existing, _ := s.PartnerRepo.GetByCompanyID(ctx, req.CompanyID)

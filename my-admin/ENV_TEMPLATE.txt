@@ -1,0 +1,8 @@
+# Frontend Configuration Template
+# Copy isi file ini ke file .env.local di folder my-admin/
+# Jangan commit file .env.local ke repository!
+
+# Backend API URL
+# Pastikan port sesuai dengan backend Go (default: 3000)
+NEXT_PUBLIC_API_URL=http://localhost:3000
+

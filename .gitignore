@@ -1,0 +1,51 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Build outputs
+bin/
+dist/
+build/
+
+# Node modules (already in my-admin/.gitignore, but adding here for safety)
+node_modules/
+
+# Go specific (already in GO/.gitignore, but adding here for safety)
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+vendor/
+go.work
+
+# Next.js specific (already in my-admin/.gitignore, but adding here for safety)
+.next/
+out/
+.vercel
+*.tsbuildinfo
+next-env.d.ts
+

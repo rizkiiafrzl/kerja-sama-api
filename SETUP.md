@@ -2,6 +2,373 @@
 
 Panduan lengkap untuk setup backend Go dan frontend Next.js.
 
+## 📊 Flowchart Alur Kerja Fitur Aplikasi
+
+### 1. Fitur Login Admin
+
+```mermaid
+flowchart TD
+    Start([Mulai]) --> UI_ShowForm[UI: Tampilkan Login Form]
+    
+    UI_ShowForm --> UI_Input[UI: User Input Username & Password]
+    
+    UI_Input --> API_Login[API: POST /api/v1/auth/admin/login]
+    
+    API_Login --> BE_Validate[BE: Validasi Admin & Generate JWT]
+    
+    BE_Validate --> BE_Check{BE: Credentials Valid?}
+    
+    BE_Check -->|No| ERR_Show[ERR: Tampilkan Error di Form]
+    ERR_Show --> UI_Input
+    
+    BE_Check -->|Yes| UI_Receive[UI: Receive JWT Token & Admin Data]
+    
+    UI_Receive --> UI_Store[UI: Store Token di localStorage]
+    
+    UI_Store --> UI_Redirect[UI: Redirect ke Dashboard]
+    
+    UI_Redirect --> BE_CheckToken{BE: Validasi Token}
+    
+    BE_CheckToken -->|Invalid| ERR_Expired[ERR: Token Expired]
+    ERR_Expired --> UI_ShowForm
+    
+    BE_CheckToken -->|Valid| UI_Dashboard[UI: Tampilkan Dashboard]
+    
+    UI_Dashboard --> End([Selesai])
+    
+    style Start fill:#90EE90
+    style End fill:#90EE90
+    style UI_ShowForm fill:#87CEEB
+    style UI_Input fill:#87CEEB
+    style UI_Receive fill:#87CEEB
+    style UI_Store fill:#87CEEB
+    style UI_Redirect fill:#87CEEB
+    style UI_Dashboard fill:#87CEEB
+    style API_Login fill:#FFD580
+    style BE_Validate fill:#FFE4B5
+    style BE_Check fill:#FFE4B5
+    style BE_CheckToken fill:#FFE4B5
+    style ERR_Show fill:#FFB6C1
+    style ERR_Expired fill:#FFB6C1
+```
+
+### 2. Fitur Create Company/Partner
+
+```mermaid
+flowchart TD
+    Start([Mulai]) --> UI_ShowForm[UI: Tampilkan Add Company Form]
+    
+    UI_ShowForm --> UI_FillData[UI: Isi Data Company]
+    
+    UI_FillData --> UI_AutoGen[UI: Auto Generate Company ID & PKS]
+    
+    UI_AutoGen --> UI_Submit[UI: Submit Form]
+    
+    UI_Submit --> API_Create[API: POST /admin/partners]
+    
+    API_Create --> BE_Process[BE: Validasi, Generate Data & Create Partner]
+    
+    BE_Process --> BE_Check{BE: Valid & Berhasil?}
+    
+    BE_Check -->|No| ERR_Show[ERR: Tampilkan Error di Form]
+    ERR_Show --> UI_FillData
+    
+    BE_Check -->|Yes| UI_Receive[UI: Receive Partner Data & API Key]
+    
+    UI_Receive --> UI_ShowModal[UI: Tampilkan Modal API Key]
+    
+    UI_ShowModal --> UI_Copy[UI: User Copy API Key]
+    
+    UI_Copy --> UI_Refresh[UI: Refresh Company List]
+    
+    UI_Refresh --> End([Selesai])
+    
+    style Start fill:#90EE90
+    style End fill:#90EE90
+    style UI_ShowForm fill:#87CEEB
+    style UI_FillData fill:#87CEEB
+    style UI_AutoGen fill:#87CEEB
+    style UI_Submit fill:#87CEEB
+    style UI_Receive fill:#87CEEB
+    style UI_ShowModal fill:#87CEEB
+    style UI_Copy fill:#87CEEB
+    style UI_Refresh fill:#87CEEB
+    style API_Create fill:#FFD580
+    style BE_Process fill:#FFE4B5
+    style BE_Check fill:#FFE4B5
+    style ERR_Show fill:#FFB6C1
+```
+
+### 3. Fitur View & Edit Company
+
+```mermaid
+flowchart TD
+    Start([Mulai]) --> UI_Click[UI: Klik View/Edit Company]
+    
+    UI_Click --> API_GetDetail[API: GET /admin/partners/:id]
+    
+    API_GetDetail --> BE_GetData[BE: Get Partner & Scopes Data]
+    
+    BE_GetData --> UI_ShowModal[UI: Tampilkan Modal Detail]
+    
+    UI_ShowModal --> UI_Action{UI: User Action?}
+    
+    UI_Action -->|View| UI_Display[UI: Tampilkan Info Company]
+    UI_Display --> End([Selesai])
+    
+    UI_Action -->|Edit| UI_EditForm[UI: Tampilkan Edit Form]
+    
+    UI_EditForm --> UI_Submit[UI: Submit Update]
+    
+    UI_Submit --> API_Update[API: PUT /admin/partners/:id]
+    
+    API_Update --> BE_Process[BE: Validasi & Update Partner]
+    
+    BE_Process --> BE_Check{BE: Valid & Berhasil?}
+    
+    BE_Check -->|No| ERR_Show[ERR: Tampilkan Error di Form]
+    ERR_Show --> UI_EditForm
+    
+    BE_Check -->|Yes| UI_Receive[UI: Receive Success Response]
+    
+    UI_Receive --> UI_Refresh[UI: Refresh Company List]
+    
+    UI_Refresh --> End
+    
+    style Start fill:#90EE90
+    style End fill:#90EE90
+    style UI_Click fill:#87CEEB
+    style UI_ShowModal fill:#87CEEB
+    style UI_Display fill:#87CEEB
+    style UI_EditForm fill:#87CEEB
+    style UI_Submit fill:#87CEEB
+    style UI_Receive fill:#87CEEB
+    style UI_Refresh fill:#87CEEB
+    style API_GetDetail fill:#FFD580
+    style API_Update fill:#FFD580
+    style BE_GetData fill:#FFE4B5
+    style BE_Process fill:#FFE4B5
+    style BE_Check fill:#FFE4B5
+    style ERR_Show fill:#FFB6C1
+```
+
+### 4. Fitur Delete Company
+
+```mermaid
+flowchart TD
+    Start([Mulai]) --> UI_Click[UI: Klik Delete Company]
+    
+    UI_Click --> UI_Confirm{UI: Confirm Delete?}
+    
+    UI_Confirm -->|Cancel| End([Selesai])
+    
+    UI_Confirm -->|Confirm| API_Delete[API: DELETE /admin/partners/:id]
+    
+    API_Delete --> BE_Process[BE: Check & Soft Delete Partner]
+    
+    BE_Process --> BE_Check{BE: Berhasil?}
+    
+    BE_Check -->|No| ERR_Show[ERR: Tampilkan Error]
+    ERR_Show --> End
+    
+    BE_Check -->|Yes| UI_Receive[UI: Receive Success Response]
+    
+    UI_Receive --> UI_Refresh[UI: Refresh Company List]
+    
+    UI_Refresh --> End
+    
+    style Start fill:#90EE90
+    style End fill:#90EE90
+    style UI_Click fill:#87CEEB
+    style UI_Confirm fill:#87CEEB
+    style UI_Receive fill:#87CEEB
+    style UI_Refresh fill:#87CEEB
+    style API_Delete fill:#FFD580
+    style BE_Process fill:#FFE4B5
+    style BE_Check fill:#FFE4B5
+    style ERR_Show fill:#FFB6C1
+```
+
+### 5. Fitur Manage Scopes (Access Permissions)
+
+```mermaid
+flowchart TD
+    Start([Mulai]) --> UI_Click[UI: Klik Manage Scopes]
+    
+    UI_Click --> API_GetScopes[API: GET /admin/partners/:id/scopes]
+    
+    API_GetScopes --> BE_GetScopes[BE: Get Partner Scopes]
+    
+    BE_GetScopes --> UI_Display[UI: Tampilkan Scopes Status]
+    
+    UI_Display --> UI_Toggle[UI: User Toggle Scope Enable/Disable]
+    
+    UI_Toggle --> API_Update[API: PUT /admin/partners/:id/scopes]
+    
+    API_Update --> BE_Process[BE: Validasi & Update Scopes]
+    
+    BE_Process --> BE_Check{BE: Berhasil?}
+    
+    BE_Check -->|No| ERR_Show[ERR: Tampilkan Error]
+    ERR_Show --> UI_Display
+    
+    BE_Check -->|Yes| UI_Receive[UI: Receive Success Response]
+    
+    UI_Receive --> UI_Refresh[UI: Refresh Scopes Display]
+    
+    UI_Refresh --> End([Selesai])
+    
+    style Start fill:#90EE90
+    style End fill:#90EE90
+    style UI_Click fill:#87CEEB
+    style UI_Display fill:#87CEEB
+    style UI_Toggle fill:#87CEEB
+    style UI_Receive fill:#87CEEB
+    style UI_Refresh fill:#87CEEB
+    style API_GetScopes fill:#FFD580
+    style API_Update fill:#FFD580
+    style BE_GetScopes fill:#FFE4B5
+    style BE_Process fill:#FFE4B5
+    style BE_Check fill:#FFE4B5
+    style ERR_Show fill:#FFB6C1
+```
+
+### 6. Fitur Reveal & Reset API Key
+
+```mermaid
+flowchart TD
+    Start([Mulai]) --> UI_Click[UI: Klik Reveal/Reset API Key]
+    
+    UI_Click --> UI_Choice{UI: Pilih Action?}
+    
+    UI_Choice -->|Reveal| API_Reveal[API: GET /admin/partners/:id/reveal-api-key]
+    UI_Choice -->|Reset| UI_Confirm{UI: Confirm Reset?}
+    
+    UI_Confirm -->|Cancel| End([Selesai])
+    UI_Confirm -->|Confirm| API_Reset[API: POST /admin/partners/:id/reset-api-key]
+    
+    API_Reveal --> BE_Get[BE: Get Partner & Current API Key]
+    API_Reset --> BE_Generate[BE: Generate New API Key & Update]
+    
+    BE_Get --> BE_Check1{BE: Berhasil?}
+    BE_Generate --> BE_Check2{BE: Berhasil?}
+    
+    BE_Check1 -->|No| ERR_Show[ERR: Tampilkan Error]
+    BE_Check2 -->|No| ERR_Show
+    
+    ERR_Show --> End
+    
+    BE_Check1 -->|Yes| UI_Receive1[UI: Receive Current API Key]
+    BE_Check2 -->|Yes| UI_Receive2[UI: Receive New API Key]
+    
+    UI_Receive1 --> UI_ShowModal[UI: Tampilkan Modal API Key]
+    UI_Receive2 --> UI_ShowModal
+    
+    UI_ShowModal --> UI_Copy[UI: User Copy API Key]
+    
+    UI_Copy --> End
+    
+    style Start fill:#90EE90
+    style End fill:#90EE90
+    style UI_Click fill:#87CEEB
+    style UI_Choice fill:#87CEEB
+    style UI_Confirm fill:#87CEEB
+    style UI_Receive1 fill:#87CEEB
+    style UI_Receive2 fill:#87CEEB
+    style UI_ShowModal fill:#87CEEB
+    style UI_Copy fill:#87CEEB
+    style API_Reveal fill:#FFD580
+    style API_Reset fill:#FFD580
+    style BE_Get fill:#FFE4B5
+    style BE_Generate fill:#FFE4B5
+    style BE_Check1 fill:#FFE4B5
+    style BE_Check2 fill:#FFE4B5
+    style ERR_Show fill:#FFB6C1
+```
+
+### 7. Fitur TK Checking (Partner API) - Level 1: Overview
+
+```mermaid
+flowchart TD
+    Start([Mulai]) --> API_Request[API: POST /api/checking<br/>Header: X-API-KEY<br/>Body: NIK, TanggalLahir]
+    
+    API_Request --> BE_ValidateAuth[BE: Validasi API Key, Status & Contract]
+    
+    BE_ValidateAuth --> BE_CheckAuth{BE: Authorized?}
+    
+    BE_CheckAuth -->|No| ERR_Auth[ERR: Return 401/403]
+    ERR_Auth --> End([End])
+    
+    BE_CheckAuth -->|Yes| BE_ValidateReq[BE: Validasi Request Body]
+    
+    BE_ValidateReq --> BE_CheckReq{BE: Request Valid?}
+    
+    BE_CheckReq -->|No| ERR_400[ERR: Return 400]
+    ERR_400 --> End
+    
+    BE_CheckReq -->|Yes| BE_Process[BE: Query TK Data & Filter by Scopes]
+    
+    BE_Process --> BE_Log[BE: Log to Audit Table]
+    
+    BE_Log --> UI_Return[UI: Return JSON Response]
+    
+    UI_Return --> End
+    
+    style Start fill:#90EE90
+    style End fill:#90EE90
+    style API_Request fill:#FFD580
+    style UI_Return fill:#87CEEB
+    style BE_ValidateAuth fill:#FFE4B5
+    style BE_CheckAuth fill:#FFE4B5
+    style BE_ValidateReq fill:#FFE4B5
+    style BE_CheckReq fill:#FFE4B5
+    style BE_Process fill:#FFE4B5
+    style BE_Log fill:#FFE4B5
+    style ERR_Auth fill:#FFB6C1
+    style ERR_400 fill:#FFB6C1
+```
+
+### 7. Fitur TK Checking (Partner API) - Level 2: Detail Process
+
+```mermaid
+flowchart TD
+    Start([Detail Process]) --> BE_GetPartner[BE: Get Partner by API Key]
+    
+    BE_GetPartner --> BE_CheckStatus[BE: Check Status Active & Contract Period]
+    
+    BE_CheckStatus --> BE_LoadScopes[BE: Load Partner Scopes]
+    
+    BE_LoadScopes --> BE_Parse[BE: Parse NIK & TanggalLahir]
+    
+    BE_Parse --> BE_QueryTK[BE: Query TK Data by NIK & DOB]
+    
+    BE_QueryTK --> BE_Found{TK Found?}
+    
+    BE_Found -->|No| BE_PrepareNotFound[BE: Prepare Response found: false]
+    
+    BE_Found -->|Yes| BE_Filter[BE: Filter by Enabled Scopes<br/>name, tanggal_lahir, status_bpjs, alamat]
+    
+    BE_Filter --> BE_PrepareFound[BE: Prepare Response found: true]
+    
+    BE_PrepareNotFound --> BE_LogAudit[BE: Log Request & Response to Audit]
+    BE_PrepareFound --> BE_LogAudit
+    
+    BE_LogAudit --> End([Return Response])
+    
+    style Start fill:#90EE90
+    style End fill:#90EE90
+    style BE_GetPartner fill:#FFE4B5
+    style BE_CheckStatus fill:#FFE4B5
+    style BE_LoadScopes fill:#FFE4B5
+    style BE_Parse fill:#FFE4B5
+    style BE_QueryTK fill:#FFE4B5
+    style BE_Found fill:#FFE4B5
+    style BE_Filter fill:#FFE4B5
+    style BE_PrepareNotFound fill:#FFE4B5
+    style BE_PrepareFound fill:#FFE4B5
+    style BE_LogAudit fill:#FFE4B5
+```
+
 ## 📋 Prerequisites
 
 - **Go** 1.21 atau lebih tinggi

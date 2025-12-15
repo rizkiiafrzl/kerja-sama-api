@@ -188,7 +188,7 @@ export default function CompanyList({ onRefresh }) {
     <>
       <div className="rounded-xl border border-slate-200 bg-white shadow-sm">
       <div className="overflow-x-auto">
-        <table className="w-full">
+        <table className="w-full min-w-[1200px]">
           <thead className="bg-slate-50 border-b border-slate-200">
             <tr>
               <th className="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider">
@@ -206,8 +206,14 @@ export default function CompanyList({ onRefresh }) {
               <th className="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider">
                 Status
               </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider">
+              <th className="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider min-w-[110px]">
                 Created
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider min-w-[130px]">
+                Contract Start
+              </th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-slate-600 uppercase tracking-wider min-w-[130px]">
+                Contract End
               </th>
               <th className="px-6 py-3 text-right text-xs font-medium text-slate-600 uppercase tracking-wider">
                 Actions
@@ -249,7 +255,19 @@ export default function CompanyList({ onRefresh }) {
                   </span>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
-                  {new Date(company.created_at).toLocaleDateString()}
+                  {company.created_at
+                    ? new Date(company.created_at).toLocaleDateString()
+                    : "-"}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
+                  {company.contract_start
+                    ? new Date(company.contract_start).toLocaleDateString()
+                    : "-"}
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
+                  {company.contract_end
+                    ? new Date(company.contract_end).toLocaleDateString()
+                    : "-"}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   {company.id ? (

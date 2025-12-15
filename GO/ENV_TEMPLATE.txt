@@ -1,0 +1,30 @@
+# Backend Configuration Template
+# Copy isi file ini ke file .env di folder GO/
+# Jangan commit file .env ke repository!
+
+# Port untuk menjalankan server (default: 3000)
+PORT=3000
+
+# Environment: development, staging, production
+ENV=development
+
+# Database Connection URL
+# Format: postgres://username:password@host:port/database?sslmode=disable
+# Ganti username, password, host, port, dan database dengan nilai yang sesuai
+DATABASE_URL=postgres://postgres:password@localhost:5432/pks_db?sslmode=disable
+
+# JWT Secret Key untuk signing token admin
+# HARUS menggunakan random generator yang aman (minimal 32 karakter)
+# Generate dengan: openssl rand -base64 64
+# Atau: go run scripts/generate-secrets.go
+JWT_SECRET=your-super-secret-jwt-key-change-in-production-min-32-chars
+
+# Platform API Key untuk server-to-server authentication
+# HARUS menggunakan random generator yang aman (minimal 32 karakter)
+# Generate dengan: openssl rand -hex 32
+# Atau: go run scripts/generate-secrets.go
+PLATFORM_API_KEY=your-platform-api-key-for-server-to-server-min-32-chars
+
+# Partner Token TTL dalam detik (default: 86400 = 24 jam)
+PARTNER_TOKEN_TTL=86400
+

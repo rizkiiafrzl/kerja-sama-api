@@ -16,7 +16,7 @@ function DashboardContent() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
       <header className="border-b border-slate-200 bg-white shadow-sm">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-6">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
           <h1 className="text-2xl font-semibold text-slate-900">
             Admin Dashboard
           </h1>
@@ -24,7 +24,7 @@ function DashboardContent() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl px-6 py-10">
+      <main className="mx-auto max-w-7xl px-6 py-10">
         <section className="mb-6 flex items-center justify-between">
           <h2 className="text-sm font-medium text-slate-600 uppercase tracking-wide">
             Companies

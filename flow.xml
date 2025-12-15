@@ -1,0 +1,122 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="diagram1" name="Flow Overview">
+    <mxGraphModel dx="1420" dy="820" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1000">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1"/>
+
+        <!-- Admin Area -->
+        <mxCell id="A1" value="Aplikasi Berjalan" style="ellipse;whiteSpace=wrap;html=1;fillColor=#90EE90" vertex="1">
+          <mxGeometry x="80" y="200" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="A2" value="Login Admin" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#87CEEB" vertex="1">
+          <mxGeometry x="260" y="200" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="A3" value="Login Valid?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFE4B5" vertex="1">
+          <mxGeometry x="450" y="190" width="140" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="AErr" value="Error Login" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFB6C1" vertex="1">
+          <mxGeometry x="450" y="300" width="140" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="A4" value="Dashboard Admin" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#87CEEB" vertex="1">
+          <mxGeometry x="650" y="200" width="170" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="A6" value="Admin Memilih Aksi:&#xa;Kelola Partner / API Key / Scopes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#87CEEB" vertex="1">
+          <mxGeometry x="850" y="190" width="200" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- Backend -->
+        <mxCell id="B1" value="Validasi Input" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE4B5" vertex="1">
+          <mxGeometry x="1100" y="200" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="BCheck" value="Valid?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFE4B5" vertex="1">
+          <mxGeometry x="1300" y="190" width="130" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="BErr" value="Error Validasi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFB6C1" vertex="1">
+          <mxGeometry x="1300" y="300" width="130" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="B2" value="Proses Backend&#xa;Create/Update/Delete Partner, API Key, Scopes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE4B5" vertex="1">
+          <mxGeometry x="1480" y="180" width="200" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="DB1" value="Database Partner" style="shape=cylinder;whiteSpace=wrap;html=1;fillColor=#DDA0DD" vertex="1">
+          <mxGeometry x="1720" y="190" width="150" height="90" as="geometry"/>
+        </mxCell>
+
+        <!-- Partner API -->
+        <mxCell id="P1" value="Request /checking" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFD580" vertex="1">
+          <mxGeometry x="80" y="500" width="170" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="P2" value="Validasi API Key, Status, Kontrak" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE4B5" vertex="1">
+          <mxGeometry x="300" y="500" width="220" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="PAuth" value="Authorized?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFE4B5" vertex="1">
+          <mxGeometry x="560" y="490" width="130" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="P401" value="401/403 Unauthorized" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFB6C1" vertex="1">
+          <mxGeometry x="560" y="600" width="150" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="P3" value="Validasi Request Body (NIK+DOB)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE4B5" vertex="1">
+          <mxGeometry x="720" y="500" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="PReq" value="Valid?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFE4B5" vertex="1">
+          <mxGeometry x="950" y="490" width="140" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="P400" value="400 Bad Request" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFB6C1" vertex="1">
+          <mxGeometry x="950" y="600" width="150" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="TKQ" value="Query Data TK" style="shape=cylinder;whiteSpace=wrap;html=1;fillColor=#DDA0DD" vertex="1">
+          <mxGeometry x="1130" y="500" width="150" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="TKFound" value="TK ditemukan?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#FFE4B5" vertex="1">
+          <mxGeometry x="1330" y="490" width="140" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="PNotFound" value="found:false" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFB6C1" vertex="1">
+          <mxGeometry x="1330" y="600" width="140" height="50" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="PFilter" value="Filter Sesuai Scopes" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFE4B5" vertex="1">
+          <mxGeometry x="1530" y="500" width="180" height="60" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="Audit" value="Audit Log" style="shape=cylinder;whiteSpace=wrap;html=1;fillColor=#DDA0DD" vertex="1">
+          <mxGeometry x="1730" y="500" width="150" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="POutput" value="OUTPUT JSON" style="ellipse;whiteSpace=wrap;html=1;fillColor=#90EE90" vertex="1">
+          <mxGeometry x="1920" y="510" width="150" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- Connections -->
+        <mxCell id="e1" edge="1" source="A1" target="A2"/>
+        <mxCell id="e2" edge="1" source="A2" target="A3"/>
+        <mxCell id="e3" edge="1" source="A3" target="AErr"/>
+        <mxCell id="e4" edge="1" source="A3" target="A4"/>
+        <mxCell id="e5" edge="1" source="A4" target="A6"/>
+        <mxCell id="e6" edge="1" source="A6" target="B1"/>
+
+        <mxCell id="e7" edge="1" source="B1" target="BCheck"/>
+        <mxCell id="e8" edge="1" source="BCheck" target="BErr"/>
+        <mxCell id="e9" edge="1" source="BCheck" target="B2"/>
+        <mxCell id="e10" edge="1" source="B2" target="DB1"/>
+
+        <mxCell id="e11" edge="1" source="P1" target="P2"/>
+        <mxCell id="e12" edge="1" source="P2" target="PAuth"/>
+        <mxCell id="e13" edge="1" source="PAuth" target="P401"/>
+        <mxCell id="e14" edge="1" source="PAuth" target="P3"/>
+        <mxCell id="e15" edge="1" source="P3" target="PReq"/>
+        <mxCell id="e16" edge="1" source="PReq" target="P400"/>
+        <mxCell id="e17" edge="1" source="PReq" target="TKQ"/>
+        <mxCell id="e18" edge="1" source="TKQ" target="TKFound"/>
+        <mxCell id="e19" edge="1" source="TKFound" target="PNotFound"/>
+        <mxCell id="e20" edge="1" source="TKFound" target="PFilter"/>
+        <mxCell id="e21" edge="1" source="PFilter" target="Audit"/>
+        <mxCell id="e22" edge="1" source="Audit" target="POutput"/>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
